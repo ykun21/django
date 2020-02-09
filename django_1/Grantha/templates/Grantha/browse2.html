@@ -1,0 +1,35 @@
+{% extends 'Grantha/base_layout.html' %}
+
+
+{% block content %} 
+  
+<div class="container">
+  <form class="form-inline ">
+    <input class="form-control form-control-sm mr-2 w-75 mt-3 ml-5 " type="text" placeholder="Search">
+      <button class="btn bg-primary btn-sm pl-5 pr-5  mt-3 text-light">Search</button>
+  </form>
+     <div class="card mt-5 p-3 bg-transparent border-light text-light">
+        <h5 class="card-header bg-transparent border-light ">Lord of the rings.</h5>
+          <div class="card-body">
+              <h5 class="card-text text-warning">J. R. R. Tolkien</h5>
+              <p class="card-text">The Lord of the Rings is an epic high-fantasy novel written by English author and scholar J. R. R. Tolkien. The story began as a sequel to Tolkien's 1937 fantasy novel The Hobbit, but eventually developed into a much larger work.</p>
+              <a href="https://www.goodreads.com/book/show/33.The_Lord_of_the_Rings" target="_blank" class="btn btn-primary">Rating 4.5/5</a>
+          </div>
+          <div>
+            <p class="card-header bg-transparent  mt-2"><b>User reviews</b></p>
+              {% for object in objects %}
+                <div class="pl-5">
+                  <div class="card-body">
+                    <h5 class="card-text"><b>{{ object.author }}</b></h5>
+                      <p class="text-muted"> {{ object.datetime }}  </p>
+                      <p class="card-text">{{ object.review }}</p>
+                      <p class="btn btn-secondary">Rating 4.5/5{{ object.rating }}</p>  
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+      </div>
+</div>
+
+
+{% endblock %}  
