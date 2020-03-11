@@ -1,0 +1,25 @@
+{% extends 'Grantha/base_layout.html'%}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container_fluid mt-5 col-lg-5 mx-auto">
+<div class="content-section">
+	<div class="card bg-transparent border-light rounded p-5 shadow-lg mb-5">
+	<form method="POST">
+		{% csrf_token %}
+		<fieldset class="form-group">
+			<legend class="border-bottom mb-4">Register</legend>
+			{{ form|crispy }}
+		</fieldset>
+		<div class="form-group">
+			<button class="btn btn-outline-info" type="submit">Sign up</button>
+		</div>
+	</form>
+	<div class="border-top mb-4">
+		<small class="text-muted">
+			Already have an account?<a class="ml-2"  href="{% url 'login' %}">Sign in</a>
+		</small>
+	</div>
+</div>
+</div>
+</div>
+{% endblock %}	

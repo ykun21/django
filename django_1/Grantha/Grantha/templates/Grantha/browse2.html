@@ -1,0 +1,71 @@
+{% extends 'Grantha/base_layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %} 
+  
+<div class="container">
+  <form method="POST" action="{% url 'Grantha-browse' %}" class="form-inline ">{% csrf_token %}
+    <input class="form-control form-control-sm mr-2 w-75 mt-3 ml-5 " name="Search" type="Search" placeholder="search">
+    <input type="Submit" class="btn bg-primary btn-sm pl-5 pr-5  mt-3 text-light">
+  </form>
+
+
+  <div class="card mt-5 p-3 bg-transparent border-light p-5 shadow-lg text-light">
+    <h5 class="card-header bg-transparent border-light ">
+      {% if title is None %} <p>Search by title, Author, Isbn.</p> {% else %} {{ title }} </h5>
+    <div class="card-body">
+      <h5 class="card-text text-warning">{{ author }}</h5>
+      <p class="card-text"></p>
+      <a href="https://duckduckgo.com/?q={{ title }}" target="_blank" class="btn btn-primary"> Rating {{ avg_rating }}</a>
+      <small class="text-muted">{{ match.rating_count }}</small>
+      <p>{{ language }}</p>
+      <p>{{ isbn }}</p>
+      <p>{{ reviews_count }}</p>
+      <p>
+        <a class="btn " data-toggle="collapse.show" href="#comments" role="button" aria-expanded="True" aria-controls="comments">Load reviews {{ review.count }}</a>
+       </p>
+          
+           <!--USER REVIEWS --> 
+          <form method="POST" action="{% url 'Grantha-browse' %}">
+             {% csrf_token %}
+             {{ form|crispy }}
+          </form>     
+    <div id="comments">
+      <h4 class="m-3">Reviews</h4>
+     <form action="{% url 'Grantha-browse' %}" method="POST">
+      {% csrf_token %}
+      <div class="form-group pl-5">
+        <textarea class="form-control" id="Reviews" name="Comments" placeholder="Write Your own review." rows="1"></textarea>
+          <div class="form-inline mt-3">
+            <label for="sel1 mt-3">Rate</label>
+              <select class="form-control ml-2 col-sm-2" id="sel1" name="Rating">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>      
+          </div>
+      <button type="Submit" class="btn bg-primary btn-sm text-light m-3">Submit</button>
+      </div>
+      </form>
+      <div class="pl-5">
+      <div class="card-body">
+      <div class="">
+        {% for r in reviews %}
+        <img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fpng-1.findicons.com%2Ffiles%2Ficons%2F385%2Fgame_stars%2F64%2Fmario.png&f=1&nofb=1" style="width: 64px; height: 64px; float:left"  id="profile_avatar" class="rounded-circle img-thumbnail mr-4 "/>
+          <li>
+            <P class="card-text mt-2"><b>{{ r.author }}</b> <small class="text-muted"> {{ r.datetime }} </small><small class="text-warning pull-right"> Rated {{ r.rating }}</small></P>
+          </li>
+          <p class="card-text mt-3 ml-5 pl-4">{{ r.review }} </p>
+        {% endfor %}
+       
+      </div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </div>
+{% endif %} 
+</div> 
+{% endblock %}  

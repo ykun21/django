@@ -1,0 +1,12 @@
+{% extends 'Grantha/base_layout.html' %}
+
+
+{% block content %} 
+
+<div class="card bg-transparent border-info m-5 pl-5">
+  <div class="card-body">
+    <h4 class="card-text text-center text-light"> You have been logged out.
+    <a class="card-text text-info" href="{% url 'login' %}">Log in again.</a></h4>
+  </div>
+</div>
+{% endblock %}  
